@@ -1,0 +1,14 @@
+menu "Board Configure"
+    choice BOARD
+        prompt "Board Select"
+        default BOARD_S3_DEVKIT_C1
+
+        config BOARD_S3_DEVKIT_C1
+            bool "S3 DevKit C1"
+    endchoice
+
+config BOARD_NAME
+    string
+    default "s3_devkitc1" if BOARD_S3_DEVKIT_C1
+    
+endmenu
