@@ -1,7 +1,8 @@
 #pragma once
 
-#include <display.hpp>
 #include <spi.hpp>
+
+#include <esp_lcd_types.h>
 
 class board;
 
@@ -9,7 +10,7 @@ board *board_create();
 class board {
 protected:
     spi_master *_spi_master[SPI_HOST_MAX] = {};
-    display *_display;
+    esp_lcd_panel_handle_t _lcd_panel;
 public:
     board() = default;
     ~board() = default;
@@ -21,10 +22,6 @@ public:
             _instance = board_create();
 
         return *_instance;
-    }
-
-    display *get_display() {
-        return _display;
     }
 };
 

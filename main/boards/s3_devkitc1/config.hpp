@@ -2,7 +2,6 @@
 
 #include <driver/gpio.h>
 
-#define SPI0_ENABLED    0
 #define SPI1_ENABLED    0
 #define SPI2_ENABLED    0
 #define SPI3_ENABLED    1

@@ -11,11 +11,20 @@ public:
 
 s3_devkitc1::s3_devkitc1()
 {
-    spi_bus_config_t config = {};
 
-    if (SPI0_ENABLED) {
+}
 
+s3_devkitc1::~s3_devkitc1()
+{
+    for (spi_master *master: _spi_master) {
+        if (master)
+            delete master;
     }
+}
+
+int s3_devkitc1::init()
+{
+    spi_bus_config_t config = {};
 
     if (SPI1_ENABLED) {
 
@@ -31,21 +40,10 @@ s3_devkitc1::s3_devkitc1()
         config.max_transfer_sz = SPI_MAX_DMA_LEN;
         config.sclk_io_num = SPI3_CLK;
         _spi_master[SPI3_HOST] = new spi_master(SPI3_HOST, &config, SPI_DMA_CH_AUTO);
+        if (_spi_master[SPI3_HOST])
+            _spi_master[SPI3_HOST]->init();
     }
 
-    _display = new display();
-}
-
-s3_devkitc1::~s3_devkitc1()
-{
-    for (spi_master *master: _spi_master) {
-        if (master)
-            delete master;
-    }
-}
-
-int s3_devkitc1::init()
-{
     return 0;
 }
 
